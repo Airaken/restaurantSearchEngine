@@ -16,8 +16,7 @@ const tokenValidator = (req, res, next) => {
       });
     }
 
-    req.user = decoded.user;
-    db.collection("tokens").findOne({ email: req.user }, (err, data) => {
+    db.collection("tokens").findOne({ user: decoded.user }, (err, data) => {
       if (err) {
         return res.status(401).json({
           ok: false,
@@ -27,7 +26,7 @@ const tokenValidator = (req, res, next) => {
         });
       }
 
-      if (data.ok) {
+      if (data.token) {
         next();
       } else {
         return res.status(401).json({

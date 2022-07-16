@@ -13,7 +13,6 @@ services:
       - /usr/src/app/node_modules/
     depends_on:
       - mongo
-      - mongo-seed
       
   mongo:
     restart: always
@@ -22,8 +21,3 @@ services:
       - MONGO_INITDB_DATABASE=restaurantSearchEngine
     ports:
       - '27017:27017'
-  
-  mongo-seed:
-    build: ./src/mongo-seed
-    depends_on:
-      - mongo
